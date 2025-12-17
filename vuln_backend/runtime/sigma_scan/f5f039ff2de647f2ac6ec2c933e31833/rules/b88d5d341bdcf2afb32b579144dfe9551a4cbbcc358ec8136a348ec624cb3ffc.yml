@@ -1,0 +1,21 @@
+id: 8a7c3d2b-1e4a-4b8f-9a2c-3f1234567890
+date: 2025/11/12
+tags:
+- attack.execution
+- attack.t1059
+level: high
+title: Suspicious Process - Heiren Taiguan Malware
+author: Generated from Sysmon logs
+status: experimental
+detection:
+  condition: selection
+  selection:
+    Image|endswith: \2-hrtg.exe
+    Description|contains: 黑人抬棺病毒
+logsource:
+  product: windows
+  category: process_creation
+description: Detects execution of a known malicious sample "2-hrtg.exe" with Chinese
+  description related to "黑人抬棺病毒"
+falsepositives:
+- Legitimate use in malware analysis environment

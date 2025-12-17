@@ -1,0 +1,22 @@
+title: BUG32
+id: 6a8b2c9d-1e4f-4a7b-9c3d-5f1234567891
+status: experimental
+description: Detects batch process termination using taskkill.exe targeting multiple system processes
+author: Generated from Lab3 logs
+date: 2025/11/12
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\taskkill.exe'
+        CommandLine|contains: '/f'
+        CommandLine|contains: '/im'
+    condition: selection
+falsepositives:
+    - Legitimate system administration
+    - Software installation/uninstallation processes
+level: medium
+tags:
+    - attack.defense_evasion
+    - attack.t1489

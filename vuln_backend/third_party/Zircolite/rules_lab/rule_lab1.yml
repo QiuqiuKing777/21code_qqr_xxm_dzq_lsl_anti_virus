@@ -1,0 +1,37 @@
+title: WannaCry Ransomware Detection
+id: 12345678-1234-5678-9101-123456789001
+status: experimental
+description: Detects WannaCry ransomware behavior including file timestamp manipulation, .wnry file creation, and executable generation
+author: zzq
+references:
+  - https://www.virustotal.com/
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\1-WannaCrypt0r.exe'
+      - '\@WanaDecryptor@.exe'
+    TargetFileName|contains:
+      - '.wnry'
+      - 'WNCRYT'
+  selection2:
+    Image|endswith:
+      - '\1-WannaCrypt0r.exe'
+    TargetFileName|endswith:
+      - '\taskdl.exe'
+      - '\taskse.exe'
+  selection3:
+    Image|endswith:
+      - '\1-WannaCrypt0r.exe'
+    TargetFileName|contains:
+      - '\Start Menu\Programs\Startup\'
+  condition: selection or selection2 or selection3
+falsepositives:
+  - Legitimate security testing
+  - Backup software operations
+level: high
+tags:
+  - attack.impact
+  - attack.t1486

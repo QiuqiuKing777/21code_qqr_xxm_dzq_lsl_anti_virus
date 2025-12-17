@@ -1,0 +1,21 @@
+title: Green Hat
+id: 7b9c3d4e-2f5a-4b8c-9d6e-6f2345678902
+status: experimental
+description: Detects WMIADAP.EXE modifying performance library registry keys
+author: Generated from Lab4 logs
+date: 2025/11/12
+logsource:
+    category: registry_event
+    product: windows
+detection:
+    selection_image:
+        Image|endswith: '\WMIADAP.EXE'
+    selection_registry:
+        TargetObject|contains: 'Performance'
+    condition: selection_image and selection_registry
+falsepositives:
+    - Legitimate WMI performance counter updates
+level: high
+tags:
+    - attack.persistence
+    - attack.t1047

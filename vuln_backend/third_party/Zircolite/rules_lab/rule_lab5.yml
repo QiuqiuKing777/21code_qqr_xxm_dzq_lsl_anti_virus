@@ -1,0 +1,23 @@
+title: BossDaMajor
+id: 8c0d4e5f-3a6b-4c7d-8e9f-7f3456789013
+status: experimental
+description: Detects execution of suspicious batch scripts that terminate multiple processes
+author: Generated from Lab5 logs
+date: 2025/11/12
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_taskkill:
+        Image|endswith: '\taskkill.exe'
+        CommandLine|contains: '/f /im'
+    selection_parent:
+        ParentImage|endswith: '\cmd.exe'
+        ParentCommandLine|contains: '.bat'
+    condition: selection_taskkill and selection_parent
+falsepositives:
+    - Legitimate system maintenance scripts
+level: high
+tags:
+    - attack.execution
+    - attack.t1059.003
