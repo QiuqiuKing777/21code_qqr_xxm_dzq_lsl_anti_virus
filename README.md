@@ -2,7 +2,7 @@
 
 > 本文档用于指导系统的完整部署流程，包括 **前端、后端与数据库** 的配置说明。
 > 
-> 感谢作者@wagga40等在https://github.com/wagga40/Zircolite#提供的Zircolite sigma规则扫描引擎
+> 感谢作者@wagga40等在https://github.com/wagga40/Zircolite# 提供的Zircolite sigma规则扫描引擎
 
 ---
 ## 〇、死活配不出来？
