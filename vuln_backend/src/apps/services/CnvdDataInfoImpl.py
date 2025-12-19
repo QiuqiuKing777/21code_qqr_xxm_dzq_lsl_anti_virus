@@ -41,7 +41,7 @@ def insVulnCnvd(attr_dict):
     return jsonify({"message": "数据插入成功"}), 200
 
 def delVulnCnvd(vuln_id):
-    db = pymysql.connect(host="localhost", user="root", password="15211759819Zd", database="nvd_database")
+    db = pymysql.connect(host="localhost", user="root", password="您的数据库密码", database="nvd_database")
     cursor = db.cursor()
 
     try:
@@ -62,7 +62,7 @@ def delVulnCnvd(vuln_id):
 
 
 def updateVulnCnvd(id, data):
-    db = pymysql.connect(host="localhost", user="root", password="15211759819Zd", database="nvd_database")
+    db = pymysql.connect(host="localhost", user="root", password="你的数据库密码", database="nvd_database")
     cursor=db.cursor()
 
     try:
