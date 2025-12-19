@@ -3,6 +3,8 @@
 > 本文档用于指导系统的完整部署流程，包括 **前端、后端与数据库** 的配置说明。
 > 
 > 感谢作者@wagga40等在https://github.com/wagga40/Zircolite# 提供的Zircolite sigma规则扫描引擎
+>
+> 感谢作者@Neo23x0等在https://github.com/Neo23x0/signature-base 提供的yara规则库
 
 ---
 ## 〇、死活配不出来？
