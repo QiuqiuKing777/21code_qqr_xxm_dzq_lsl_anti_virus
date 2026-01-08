@@ -47,7 +47,7 @@ def upload_sigma_json():
     try:
         f = request.files.get("file")
         source_name = request.form.get("source_name", "manual-upload")
-        data = MalSigmaUpload.upload_single_json(f, source_name)
+        data = MalSigmaUpload.upload_single_yaml(f, source_name)
         return jsonify(data)
     except Exception as e:
         return jsonify({"ok": False, "code": "BAD_REQUEST", "message": str(e)}), 400
