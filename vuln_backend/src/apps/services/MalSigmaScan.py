@@ -29,12 +29,14 @@ def get_sigma_rule_table():
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 ZIRCOLITE_DIR = os.path.join(PROJECT_ROOT, "third_party", "Zircolite")  # 推荐目录
 ZIRCOLITE_PY  = os.path.join(ZIRCOLITE_DIR, "zircolite.py")
-ZIRCOLITE_PYTHON = os.path.join(
-    ZIRCOLITE_DIR,
-    ".venv",
-    "Scripts",
-    "python.exe"
-)
+import sys
+ZIRCOLITE_PYTHON = sys.executable
+# ZIRCOLITE_PYTHON = os.path.join(
+#     ZIRCOLITE_DIR,
+#     ".venv",
+#     "Scripts",
+#     "python.exe"
+# )
 
 RUNTIME_DIR = os.path.join(PROJECT_ROOT, "runtime", "sigma_scan")  # 运行时目录（自动创建）
 MAX_EVTX_BYTES = 80 * 1024 * 1024  # 80MB
