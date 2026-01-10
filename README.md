@@ -5,6 +5,8 @@
 > 感谢作者@wagga40等在https://github.com/wagga40/Zircolite# 提供的Zircolite sigma规则扫描引擎
 >
 > 感谢作者@Neo23x0等在https://github.com/Neo23x0/signature-base 提供的yara规则库
+>
+> 感谢作者@Neo23x0等在https://github.com/SigmaHQ/sigma 提供的sigma规则库
 
 ---
 ## 〇、死活配不出来？
