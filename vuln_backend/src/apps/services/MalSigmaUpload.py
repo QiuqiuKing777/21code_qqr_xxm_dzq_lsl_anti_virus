@@ -39,6 +39,29 @@ def _read_filestorage_bytes(file_storage) -> bytes:
         pass
     return data
 
+from datetime import date, datetime
+
+def _jsonable(obj: Any) -> Any:
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {k: _jsonable(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_jsonable(v) for v in obj]
+    return obj
+
+from datetime import date, datetime
+from typing import Any
+
+def _jsonable(obj: Any) -> Any:
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {k: _jsonable(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_jsonable(v) for v in obj]
+    return obj
+
 
 def _decode_text(data: bytes) -> str:
     try:
@@ -72,12 +95,11 @@ def _safe_zip_members(zf: zipfile.ZipFile) -> List[zipfile.ZipInfo]:
 
 
 def _canonical_json_bytes(obj: Any) -> bytes:
-    """
-    YAML 解析后的对象是 dict/list，做 canonical 后用于去重 hash
-    """
     import json
+    obj = _jsonable(obj)
     s = json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return s.encode("utf-8", errors="replace")
+
 
 
 def _normalize_rules(parsed: Any) -> List[Dict[str, Any]]:
@@ -174,6 +196,7 @@ class MalSigmaUpload:
 
         with db.engine.begin() as conn:
             for idx, rule_obj in enumerate(rules):
+                rule_obj = _jsonable(rule_obj)  # 关键：入库前转换
                 fallback_title = filename if len(rules) == 1 else f"{filename}#{idx+1}"
                 sigma_id, title, description, level = _extract_sigma_fields(rule_obj, fallback_title)
 
@@ -257,6 +280,7 @@ class MalSigmaUpload:
 
                     file_inserted_any = False
                     for idx, rule_obj in enumerate(rules):
+                        rule_obj = _jsonable(rule_obj)  #关键：入库前转换
                         fallback_title = member_name if len(rules) == 1 else f"{member_name}#{idx+1}"
                         sigma_id, title, description, level = _extract_sigma_fields(rule_obj, fallback_title)
 
