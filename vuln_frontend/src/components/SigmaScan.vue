@@ -140,7 +140,7 @@
  *    - Response(建议 JSON):
  *        {
  *          ok: true,
- *          log_id: 8001,                 // 可选：如果你记录一次任务
+ *          log_id: 8001,                 // 可选
  *          filename: "Security.evtx",
  *          sha256: "...",
  *          rule_set: "enabled",
@@ -165,7 +165,7 @@
  *          ]
  *        }
  *
- * 失败返回建议：
+ * 失败返回：
  *   { ok:false, code:"NOT_EVTX"|"FILE_TOO_LARGE"|"PARSE_ERROR"|"DETECT_TIMEOUT"|"BAD_REQUEST"|"INTERNAL_ERROR", message:"..." }
  *
  * ============================================================================================
@@ -188,7 +188,7 @@ const successMsg = ref("");
 const detectResult = ref(null);
 const rawResp = ref("");
 
-const MAX_FILE_SIZE_BYTES = 80 * 1024 * 1024; // 80MB（可按你后端能力调整）
+const MAX_FILE_SIZE_BYTES = 80 * 1024 * 1024; // 80MB
 
 function resetMessages() {
   errorMsg.value = "";
