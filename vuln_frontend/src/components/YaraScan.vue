@@ -132,7 +132,7 @@
  *    - Response(建议 JSON):
  *        {
  *          ok: true,
- *          sample_id: 9001,                 // 可选：若你保存样本/记录任务
+ *          sample_id: 9001,                 // 可选
  *          sample_filename: "a.exe",
  *          sample_sha256: "....",
  *          rule_set: "enabled",
@@ -142,7 +142,7 @@
  *              namespace: "default",        // 可选
  *              tags: ["malware","test"],    // 可选
  *              meta: { author: "...", description: "..." },  // 可选
- *              strings: [                   // 可选：可能很大，建议后端可配置是否返回
+ *              strings: [                   // 可选
  *                { identifier: "$a", offset: 1234 }
  *              ]
  *            }
@@ -227,7 +227,7 @@ async function uploadAndScan() {
     successMsg.value = "扫描完成。";
   } catch (err) {
     console.error(err);
-    // 如果后端按建议返回 {ok:false,...}，这里可以更精细解析
+    // 如果后端按建议返回 {ok:false,...}，可以更精细解析
     errorMsg.value = "扫描失败：请检查后端是否启动、API 是否实现，或稍后重试。";
   } finally {
     busy.value = false;
