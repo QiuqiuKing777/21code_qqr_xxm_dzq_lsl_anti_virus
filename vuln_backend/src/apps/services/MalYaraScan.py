@@ -18,7 +18,7 @@ def get_yara_rule_table():
 
 
 # -----------------------
-# 配置（相对路径）
+# 配置路径
 # -----------------------
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 RUNTIME_DIR = os.path.join(PROJECT_ROOT, "runtime", "yara_scan_py")
