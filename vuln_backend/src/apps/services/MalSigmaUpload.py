@@ -23,7 +23,7 @@ def get_sigma_rule_table() -> Table:
 _ALLOWED_EXT = (".yml", ".yaml")
 _MAX_ZIP_ENTRIES = 500
 _MAX_SINGLE_FILE_BYTES = 20 * 1024 * 1024     # 20MB（对齐前端）
-_MAX_ZIP_TOTAL_BYTES = 80 * 1024 * 1024       # 80MB（后端建议更宽一点）
+_MAX_ZIP_TOTAL_BYTES = 80 * 1024 * 1024       # 80MB（后端更宽一点）
 
 
 # ---------- 工具 ----------
@@ -159,7 +159,7 @@ def _parse_yaml(text: str, filename_for_error: str) -> Any:
 # ---------- Service ----------
 class MalSigmaUpload:
     """
-    routes 调用方式（建议改名，但你也可以保持旧路由名）：
+    routes 调用方式（建议改名）：
       MalSigmaUpload.upload_single_yaml(request.files['file'], request.form.get('source_name'))
       MalSigmaUpload.upload_zip(request.files['file'], request.form.get('source_name'))
     """
