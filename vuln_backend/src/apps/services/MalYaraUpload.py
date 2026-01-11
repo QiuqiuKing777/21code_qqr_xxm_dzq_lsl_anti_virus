@@ -27,7 +27,7 @@ def get_yara_uncompiled_table() -> Table:
 
 
 # --------------------------
-# 配置（相对路径）
+# 配置路径
 # --------------------------
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 RUNTIME_DIR = os.path.join(PROJECT_ROOT, "runtime", "yara_rules_compile_py")
@@ -117,8 +117,8 @@ def _write_zip_members_to_dir(zf: zipfile.ZipFile, members: List[zipfile.ZipInfo
 
 def _compile_rules_to_blob_from_source(source_text: str) -> bytes:
     """
-    单文件上传：直接 compile(source=...)。
-    注意：如果规则 include 其它文件，这种方式会失败（合理）。
+    单文件上传：直接 compile(source=...)
+    注意：如果规则 include 其它文件，这种方式会失败
     """
     rules = yara.compile(source=source_text)
 
@@ -257,7 +257,7 @@ class MalYaraUpload:
                     "source_name": source_name2,
                     "source_file": filename,
                     "sha256": sha,
-                    "compiled_rule_id": compiled_rule_id,  # ✅ 外键
+                    "compiled_rule_id": compiled_rule_id,  #外键
                     "created_at": now,
                     "updated_at": now,
                 }
