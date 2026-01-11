@@ -73,7 +73,7 @@
 
 <script setup>
 /**
- * ======================= 后端需要实现的 API（仿照你原项目 axios 调用习惯） =======================
+ * ======================= 后端需要实现的 API =======================
  *
  * Base: http://localhost:3000
  *
@@ -120,7 +120,6 @@ const successMsg = ref("");
 const serverResp = ref("");
 const zipPreview = ref([]);
 
-// 你可以按需要调整这些限制
 const MAX_FILE_SIZE_BYTES = 20 * 1024 * 1024; // 20MB
 const MAX_ZIP_ENTRIES = 500;                  // 防止 zip 炸弹/超多文件
 const ALLOWED_RULE_EXTS = [".yar", ".yara"];
@@ -246,7 +245,7 @@ async function inspectZipAndBuildPreview(file) {
     throw new Error("zip 内没有找到任何 .yar/.yara 文件。");
   }
 
-  // 可选：按文件名排序
+  // 按文件名排序
   entries.sort((a, b) => a.path.localeCompare(b.path));
   return entries;
 }
