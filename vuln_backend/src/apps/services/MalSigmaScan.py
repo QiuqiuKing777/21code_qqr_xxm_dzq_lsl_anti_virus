@@ -24,10 +24,10 @@ def get_sigma_rule_table():
 
 
 # -----------------------
-# 配置：按你的项目实际路径改这里
+# 配置：按项目实际路径
 # -----------------------
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
-ZIRCOLITE_DIR = os.path.join(PROJECT_ROOT, "third_party", "Zircolite")  # 推荐目录
+ZIRCOLITE_DIR = os.path.join(PROJECT_ROOT, "third_party", "Zircolite")
 ZIRCOLITE_PY  = os.path.join(ZIRCOLITE_DIR, "zircolite.py")
 import sys
 ZIRCOLITE_PYTHON = sys.executable
@@ -38,9 +38,9 @@ ZIRCOLITE_PYTHON = sys.executable
 #     "python.exe"
 # )
 
-RUNTIME_DIR = os.path.join(PROJECT_ROOT, "runtime", "sigma_scan")  # 运行时目录（自动创建）
+RUNTIME_DIR = os.path.join(PROJECT_ROOT, "runtime", "sigma_scan")
 MAX_EVTX_BYTES = 80 * 1024 * 1024  # 80MB
-SCAN_TIMEOUT_SECONDS = 180  # 超时保护（按你机器性能调整）
+SCAN_TIMEOUT_SECONDS = 180  # 超时保护
 
 
 def _sha256_hex(data: bytes) -> str:
@@ -62,13 +62,12 @@ def _ensure_dir(p: str):
 
 
 def _safe_filename(name: str) -> str:
-    # 简单去危险字符（避免路径穿越）
+    # 简单去危险字符，避免路径穿越
     name = (name or "").replace("\\", "/").split("/")[-1]
     return name.replace("..", "_")
 
 
 def _dump_rule_to_yaml(rule_obj: Dict[str, Any]) -> str:
-    # Sigma 原生 YAML：保持 key 顺序更友好
     return yaml.safe_dump(rule_obj, sort_keys=False, allow_unicode=True)
 
 
@@ -94,7 +93,7 @@ def _extract_alerts_from_zircolite(raw_results: List[Dict[str, Any]], return_lev
         count = item.get("count") or 0
         matches = item.get("matches") or []
 
-        # evidence：从 matches 的第一条里挑几个字段（你也可以扩展）
+        # evidence：从 matches 的第一条里挑几个字段
         evidence = []
         if matches:
             sample = matches[0]
@@ -110,13 +109,12 @@ def _extract_alerts_from_zircolite(raw_results: List[Dict[str, Any]], return_lev
             "tags": item.get("tags") or [],  # 可能没有
             "hit_count": count,
             "evidence": evidence,
-            "hit_event_ids": [],  # 可选：你若想返回索引，可自己生成
+            "hit_event_ids": [], 
         }
         alerts.append(alert)
 
         if return_level == "with_events":
-            # 注意：可能很大
-            for idx, ev in enumerate(matches[:2000]):  # 给个上限保护（你可调）
+            for idx, ev in enumerate(matches[:2000]):  # 上限保护
                 hit_events.append({
                     "event_id": idx,
                     "data": ev
@@ -200,7 +198,7 @@ class MalSigmaScan:
                     f.write(yml_text)
                 written += 1
             except Exception as e:
-                # 单条规则坏了不应拖垮全局，你也可以改成 raise
+                # 单条规则坏了不应拖垮全局
                 continue
 
         if written == 0:
@@ -258,7 +256,7 @@ class MalSigmaScan:
 
         resp = {
             "ok": True,
-            "log_id": job_id,           # 你也可以换成数据库自增任务ID
+            "log_id": job_id,
             "label": label or "",
             "filename": filename,
             "sha256": evtx_sha256,
